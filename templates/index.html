@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI GitHub Maintainer</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; }
+        h1, h2 { color: #333; }
+        #logs { background-color: #f4f4f4; padding: 10px; border-radius: 5px; }
+        button { background-color: #4CAF50; color: white; padding: 10px 20px; border: none; cursor: pointer; }
+        button:hover { background-color: #45a049; }
+    </style>
+</head>
+<body>
+    <h1>AI GitHub Maintainer</h1>
+    <button onclick="triggerMaintenance()">Trigger Maintenance</button>
+    <h2>Logs</h2>
+    <pre id="logs"></pre>
+    <h2>Real-time Updates</h2>
+    <div id="updates"></div>
+    <h2>Repository Activity Report</h2>
+    <img id="report" src="" alt="Repository Activity Report">
+
+    <script>
+        const socket = io();
+
+        socket.on('connect', () => {
+            console.log('Connected to server');
+        });
+
+        socket.on('status', (data) => {
+            console.log(data.message);
+        });
+
+        socket.on('update', (data) => {
+            const updatesDiv = document.getElementById('updates');
+            updatesDiv.innerHTML += `<p>${data.repo}: ${data.status}</p>`;
+        });
+
+        function triggerMaintenance() {
+            axios.post('/trigger_maintenance')
+                .then(response => {
+                    alert(response.data.message);
+                    socket.emit('request_update', { repo: 'all' });
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        function updateLogs() {
+            axios.get('/logs')
+                .then(response => {
+                    document.getElementById('logs').textContent = response.data.logs.join('');
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        function generateReport() {
+            axios.get('/generate_report')
+                .then(response => {
+                    document.getElementById('report').src = 'data:image/png;base64,' + response.data;
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        setInterval(updateLogs, 5000);
+        updateLogs();
+        generateReport();
+    </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+github:
+  token: ${GITHUB_TOKEN}
+  max_repos: 10
+
+llm:
+  provider: ${LLM_PROVIDER}
+  model: ${LLM_MODEL}
+  api_keys:
+    openai: ${OPENAI_API_KEY}
+    anthropic: ${ANTHROPIC_API_KEY}
+    groq: ${GROQ_API_KEY}
+
+maintenance:
+  schedule: "0 0 * * 0"  # Run every Sunday at midnight
+  max_files_per_repo: 50
+  max_issues_per_repo: 20
+
+features:
+  feature_generation: true
+  code_optimization: true
+  security_analysis: true
+  performance_profiling: true
+  dependency_updates: true
+  test_generation: true
+  documentation_generation: true
+  code_review: true
+  license_check: true
+  code_explanation: true
+  pr_review: true
+  semantic_versioning: true
+  code_duplication: true
+  documentation_site: true
+  ci_cd_integration: true
+  release_notes: true
+  code_coverage: true
+  vulnerability_scan: true
+  issue_triage: true
+  issue_handling: true
+
+logging:
+  level: INFO
+  file: ai_maintainer.log
+
+plugins:
+  - name: custom_analysis
+    enabled: true
+  - name: code_metrics
+    enabled: true
+
+caching:
+  enabled: true
+  expiration: 3600  # Cache expiration in seconds
+
+custom_prompts:
+  feature_ideas: "Generate 5 innovative feature ideas for the GitHub repository '{repo_name}' with description '{repo_description}'. Focus on cutting-edge technologies and user experience improvements."
