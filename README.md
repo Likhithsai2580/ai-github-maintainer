@@ -385,7 +385,7 @@ integrations:
 ## Community and Support
 
 - Join our [Discord server](https://discord.gg/2BGD2Cuk34) for community discussions and support
-- Follow us on [Twitter](https://twitter.com/Lucky25) for the latest updates and tips
+- Follow us on [Twitter](https://twitter.com/LuckyMod25) for the latest updates and tips
 - Contribute to the project on [GitHub](https://github.com/Likhithsai2580/aigithubmaintainer)
 
 
