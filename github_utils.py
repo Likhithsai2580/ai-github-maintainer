@@ -1,15 +1,6 @@
 from github import Github
 import os
-from dotenv import load_dotenv
 from datetime import datetime
-
-load_dotenv()
-
-g = Github(os.getenv("GITHUB_TOKEN"))
-
-def get_user_repos():
-    user = g.get_user()
-    return list(user.get_repos())
 
 def get_repo_issues(repo):
     return list(repo.get_issues(state='open'))

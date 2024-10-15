@@ -1,11 +1,9 @@
 litellm
 python-dotenv
 PyGithub
-schedule
-requests
-ollama
 pyyaml
 flask
-flask-socketio
 radon
 matplotlib
+PyJWT
+cryptography

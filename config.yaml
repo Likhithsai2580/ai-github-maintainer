@@ -1,5 +1,4 @@
 github:
-  token: ${GITHUB_TOKEN}
   max_repos: 10
 
 llm:
@@ -11,7 +10,6 @@ llm:
     groq: ${GROQ_API_KEY}
 
 maintenance:
-  schedule: "0 0 * * 0"  # Run every Sunday at midnight
   max_files_per_repo: 50
   max_issues_per_repo: 20
 
@@ -52,4 +50,11 @@ caching:
   expiration: 3600  # Cache expiration in seconds
 
 custom_prompts:
-  feature_ideas: "Generate 5 innovative feature ideas for the GitHub repository '{repo_name}' with description '{repo_description}'. Focus on cutting-edge technologies and user experience improvements."
+  feature_ideas: "Generate 5 innovative and specific feature ideas for the GitHub repository '{repo_name}' with description '{repo_description}'. Focus on:
+1. Cutting-edge technologies relevant to the project's domain
+2. User experience improvements
+3. Performance enhancements
+4. Integration with popular tools or services
+5. Unique selling points that set this project apart from similar ones
+
+For each idea, provide a brief description and potential benefits."
