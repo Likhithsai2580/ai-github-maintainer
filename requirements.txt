@@ -3,7 +3,11 @@ python-dotenv
 PyGithub
 pyyaml
 flask
+flask-socketio
 radon
 matplotlib
 PyJWT
 cryptography
+google-generativeai
+requests
+semantic_version

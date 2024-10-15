@@ -2,12 +2,25 @@ github:
   max_repos: 10
 
 llm:
-  provider: ${LLM_PROVIDER}
-  model: ${LLM_MODEL}
+  providers:
+    - openai
+    - anthropic
+    - groq
+    - gemini
+  default_provider: groq
+  models:
+    groq: llama2-70b-4096
+    gemini: gemini-pro
   api_keys:
     openai: ${OPENAI_API_KEY}
     anthropic: ${ANTHROPIC_API_KEY}
     groq: ${GROQ_API_KEY}
+    gemini: ${GEMINI_API_KEY}
+
+github_app:
+  id: ${GITHUB_APP_ID}
+  private_key: ${GITHUB_PRIVATE_KEY}
+  webhook_secret: ${GITHUB_WEBHOOK_SECRET}
 
 maintenance:
   max_files_per_repo: 50
@@ -47,7 +60,7 @@ plugins:
 
 caching:
   enabled: true
-  expiration: 3600  # Cache expiration in seconds
+  expiration: 3600
 
 custom_prompts:
   feature_ideas: "Generate 5 innovative and specific feature ideas for the GitHub repository '{repo_name}' with description '{repo_description}'. Focus on:
@@ -58,3 +71,96 @@ custom_prompts:
 5. Unique selling points that set this project apart from similar ones
 
 For each idea, provide a brief description and potential benefits."
+
+external_integrations:
+  slack:
+    enabled: true
+  jira:
+    enabled: true
+    project_key: AI
+
+security:
+  vulnerability_scan:
+    enabled: true
+    severity_threshold: medium
+
+performance:
+  profiling:
+    enabled: true
+    max_files: 20
+
+dependencies:
+  update_strategy: minor
+  excluded_packages:
+    - legacy-package
+
+issue_triage:
+  auto_label: true
+  auto_assign: true
+
+code_review:
+  max_files_per_review: 10
+  focus_areas:
+    - code_quality
+    - security
+    - performance
+
+release_management:
+  auto_release: true
+  release_notes_template: |
+    ## What's New
+    {new_features}
+
+    ## Bug Fixes
+    {bug_fixes}
+
+    ## Performance Improvements
+    {performance_improvements}
+
+    ## Breaking Changes
+    {breaking_changes}
+
+reporting:
+  generate_graphs: true
+  include:
+  include_metrics:
+    - commit_activity
+    - language_breakdown
+    - contributor_stats
+
+custom_plugins:
+  - name: advanced_security_scan
+    enabled: true
+    config:
+      scan_depth: deep
+      include_dependencies: true
+  - name: ai_code_generator
+    enabled: false
+    config:
+      model: gpt-4
+      max_tokens: 500
+
+notification:
+  email:
+    enabled: true
+    recipients:
+      - admin@example.com
+      - dev-team@example.com
+  slack:
+    enabled: true
+    channel: "#github-updates"
+
+rate_limiting:
+  max_requests_per_hour: 5000
+  retry_delay: 60
+
+error_handling:
+  max_retries: 3
+  backoff_factor: 2
+
+monitoring:
+  enabled: true
+  metrics:
+    - api_calls
+    - processing_time
+    - error_rate
