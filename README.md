@@ -114,6 +114,11 @@ AI GitHub Maintainer is an advanced tool that leverages artificial intelligence 
    python main.py
    ```
 
+6. To enable the app to run automatically every week and update all repositories present on the user account, ensure the `schedule` library is installed and run the application:
+   ```
+   python main.py
+   ```
+
 ## Configuration
 
 The `config.yaml` file allows you to customize various aspects of the AI GitHub Maintainer. Refer to the comments in the file for detailed explanations of each setting.
