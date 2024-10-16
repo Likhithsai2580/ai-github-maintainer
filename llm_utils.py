@@ -2,9 +2,11 @@ from litellm import completion
 import os
 from dotenv import load_dotenv
 import google.generativeai as genai
+from functools import lru_cache
 
 load_dotenv()
 
+@lru_cache(maxsize=128)
 def generate_command(prompt):
     provider = os.getenv("LLM_PROVIDER", "groq").lower()
     model = os.getenv("LLM_MODEL", "llama2-70b-4096")

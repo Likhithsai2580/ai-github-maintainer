@@ -42,40 +42,43 @@ plugin_manager = PluginManager(config)
 def process_repo(repo):
     logging.info(f"Processing repository: {repo.name}")
     
-    date_branch = get_or_create_date_branch(repo)
-    
-    # Generate repository update suggestions
-    repo_content = get_repository_content(repo, date_branch)
-    update_suggestions = generate_repository_update(repo.name, repo_content)
-    
-    # Implement suggestions
-    implement_suggestions(repo, update_suggestions, date_branch)
-    
-    # Run enhanced features
-    scan_repository(repo, date_branch)
-    profile_repository(repo, date_branch)
-    update_dependencies(repo, date_branch)
-    triage_issues(repo)
-    review_code(repo, date_branch)
-    manage_release(repo)
-    
-    # Run plugins
-    plugin_results = plugin_manager.run_plugins(repo, date_branch)
-    for result in plugin_results:
-        create_issue(repo, f"Plugin result: {result['name']}", str(result['result']))
+    try:
+        date_branch = get_or_create_date_branch(repo)
+        
+        # Generate repository update suggestions
+        repo_content = get_repository_content(repo, date_branch)
+        update_suggestions = generate_repository_update(repo.name, repo_content)
+        
+        # Implement suggestions
+        implement_suggestions(repo, update_suggestions, date_branch)
+        
+        # Run enhanced features
+        scan_repository(repo, date_branch)
+        profile_repository(repo, date_branch)
+        update_dependencies(repo, date_branch)
+        triage_issues(repo)
+        review_code(repo, date_branch)
+        manage_release(repo)
+        
+        # Run plugins
+        plugin_results = plugin_manager.run_plugins(repo, date_branch)
+        for result in plugin_results:
+            create_issue(repo, f"Plugin result: {result['name']}", str(result['result']))
 
-    # Update CHANGELOG.md
-    changelog_update = generate_changelog_entry(repo.name)
-    update_changelog(repo, changelog_update, date_branch)
+        # Update CHANGELOG.md
+        changelog_update = generate_changelog_entry(repo.name)
+        update_changelog(repo, changelog_update, date_branch)
 
-    # Generate report
-    report = generate_report(repo)
-    create_issue(repo, "AI Maintainer Report", report)
+        # Generate report
+        report = generate_report(repo)
+        create_issue(repo, "AI Maintainer Report", report)
 
-    # Run external integrations
-    run_external_integrations(repo)
+        # Run external integrations
+        run_external_integrations(repo)
 
-    logging.info(f"Finished processing {repo.name}")
+        logging.info(f"Finished processing {repo.name}")
+    except Exception as e:
+        logging.error(f"Error processing repository {repo.name}: {str(e)}")
 
 def get_repository_content(repo, branch):
     content = ""
