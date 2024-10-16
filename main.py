@@ -3,6 +3,7 @@ from github import Github
 from dotenv import load_dotenv
 import yaml
 import logging
+import schedule
 from github_utils import (
     get_repo_issues, create_pull_request, update_changelog, 
     get_or_create_date_branch, get_repo_contributors,
@@ -113,5 +114,10 @@ def weekly_maintenance():
         process_repo(repo)
     logging.info("Weekly maintenance completed")
 
+def schedule_weekly_maintenance():
+    schedule.every().week.do(weekly_maintenance)
+
 if __name__ == "__main__":
-    weekly_maintenance()
+    schedule_weekly_maintenance()
+    while True:
+        schedule.run_pending()

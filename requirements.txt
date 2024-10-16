@@ -11,3 +11,4 @@ cryptography
 google-generativeai
 requests
 semantic_version
+schedule
